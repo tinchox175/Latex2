@@ -10,8 +10,9 @@ import numpy as np
 import time
 myappid = 'latenexadentro2'
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
-
 #region startup
+
+
 class startup(QWidget):
     def __init__(self):
         super().__init__()
@@ -24,7 +25,7 @@ class startup(QWidget):
         self.label.setScaledContents(True)
         self.label.resize(self.pixmap.width(),self.pixmap.height())
         text = self.label2 = QLabel(self, alignment=Qt.AlignCenter)
-        text.setText("Hola, Para iniciar el programa apreta ""Alt+p"" y para revisar los \n comandos escribí en cualquier lado "".opciones""!\n Cerrame apretando enter.")
+        text.setText("Hola, para iniciar la aplicacion apreta ""Alt+p"" y para revisar los \n comandos escribí en cualquier lado "".opciones""!\n Cerrame apretando enter.")
         text.move(20,330)
         self.shortcut_close = QShortcut(QKeySequence('Return'), self)
         self.shortcut_close.activated.connect(lambda : self.close())
@@ -34,14 +35,12 @@ class startup(QWidget):
         self.activateWindow()
 
 #endregion
-
 #region opciones
 class Opciones(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint)
         self.setWindowIcon(QIcon('logotipo.png'))
-
         f = open('funcs.json',)
         funcs = json.load(f)
         f.close()
@@ -140,7 +139,7 @@ class Opciones(QWidget):
         self.show()
         self.raise_()
         self.activateWindow()
-        self.shortcut_close = QShortcut(QKeySequence('Escape'), self)
+        self.shortcut_close = QShortcut(QKeySequence('Return'), self)
         self.shortcut_close.activated.connect(lambda : self.close())
 #region opsums
     def editsn(self,text):
@@ -1020,7 +1019,6 @@ def keylogs():
     k.add_word_listener('opciones', triggers='.', callback=listensettings)
 
 pimba = [0]
-
 print(pimba)
 def booteo():
     f = open('funcs.json',)
@@ -1042,9 +1040,13 @@ def booteo():
         print(pimba)
 
 k.add_hotkey('alt+p', callback=booteo)
-app = QApplication(sys.argv)
-window = startup()
-window.show()
-app.exec()
+
+def startups():
+    App = QApplication(sys.argv)
+    window = startup()
+    window.show()
+    App.exec()
+startups()
+
 k.wait()
 #endregion
